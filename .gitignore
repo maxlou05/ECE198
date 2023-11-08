@@ -1,0 +1,6 @@
+# IDE data, not needed
+/.metadata
+
+# For each individual STM project, don't need these ones
+/*/.settings
+/*/Debug
