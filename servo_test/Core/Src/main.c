@@ -104,22 +104,24 @@ int main(void)
 	// to get servo to position 0 degrees, it should be 1ms PWM
 	// to get servo to position 90 degrees, it should be 1.5ms PWM
 	// to get servo to position 180 degrees, it should be 2ms PWM
-	// Current clock frequency is 100hz (10ms periods), with each cycle counting 52500 times
+	// The CPU frequency is 84,000,000hz, divided by 16 (prescaler), so the clock ticks with frequency 5,250,000hz
+	// We set each period to be 52500 ticks (counter goes from 0 to 52499), so the effective "pulse frequency" is at 100hz (pulse width is 10ms)
 	// Thus, to achieve a 1ms pulse, it needs to be on for 10% of the time, which is counting 52500/10 = 5250 counts of on
 	int x = 525;  // x = 1% of the cycle
-	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 5*x);  // So this is at 5% duty cycle
-	HAL_Delay(1000);
-	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (int) 12.5*x);  // This is at 12.5% duty cycle
+	for(int i=0; i<3; i++) {
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 5*x);  // So this is at 5% duty cycle
 		HAL_Delay(1000);
-	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 20*x);  // This is 20% duty cycle
-	HAL_Delay(1000);
-	// From 5% to 20% seems pretty close to the desired 180 degrees rotation
-	// (linear scale)
-	// 0 degrees:   pulse width = 0.5  ms
-	// 90 degrees:  pulse width = 1.25 ms
-	// 180 degrees: pulse width =   2  ms
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (int) 13.5*x);  // This is 22% duty cycle
+		HAL_Delay(1000);
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 22*x);  // This is 22% duty cycle
+		HAL_Delay(1000);
+		// From 5% to 20% seems pretty close to the desired 180 degrees rotation
+		// (linear scale)
+		// 0 degrees:   pulse width = 0.5  ms
+		// 90 degrees:  pulse width = 1.35 ms
+		// 180 degrees: pulse width = 2.2  ms
+	}
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -193,7 +195,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 15;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 52400;
+  htim2.Init.Period = 52499;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
