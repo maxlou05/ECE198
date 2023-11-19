@@ -113,7 +113,7 @@ int main(void)
   {
 	// So voltage_reading[0] and voltage_readings[1] will store the values of direction that the joystick outputs. It is 0 - 4095
 	// voltage_readings[0] is PB0 (A3) pin (with pin text upright, left is x = 0, right is x = 4095)
-	// voltage_readings[1] is PC0 (A5) pin (with pin text uprgiht, up is y = 0, down is y = 4095)
+	// voltage_readings[1] is PC0 (A5) pin (with pin text upright, up is y = 0, down is y = 4095)
 
 	// Button is just read
 	// Pressed = 0 (current is blocked?)
