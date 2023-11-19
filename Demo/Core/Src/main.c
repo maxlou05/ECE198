@@ -200,6 +200,10 @@ int main(void)
 			lcd_send_string(med_info1);
 			lcd_set_cursor(1, 0);
 			lcd_send_string(med_info2);
+			lcd_set_cursor(2, 0);
+			lcd_send_string("(joystick down to");
+			lcd_set_cursor(3, 0);
+			lcd_send_string("stop alarm)");
 			current_state = DISPENSING;
 		}
 		else {
