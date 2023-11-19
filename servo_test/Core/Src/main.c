@@ -111,7 +111,7 @@ int main(void)
 	for(int i=0; i<3; i++) {
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 5*x);  // So this is at 5% duty cycle
 		HAL_Delay(1000);
-		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (int) 13.5*x);  // This is 22% duty cycle
+		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, (int) 13.5*x);  // This is 13.5% duty cycle
 		HAL_Delay(1000);
 		__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 22*x);  // This is 22% duty cycle
 		HAL_Delay(1000);
